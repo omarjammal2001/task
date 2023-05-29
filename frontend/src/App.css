@@ -1,0 +1,97 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.app body{
+  background-color: lightblue;
+}
+.section{
+  margin: 20px;
+}
+.form{
+  display: flex;  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  gap: 10px;
+}
+.form input{
+  border:2px solid #aaa; 
+  outline: none;
+  padding: 10px 30px;
+border-radius: 10px;
+transition: border 0.3s ease-in-out;
+}
+.form input:focus{
+  border:2px solid #3d73fc;  
+}
+.form button{
+  border:none;
+  outline: none;
+  padding: 10px 30px;
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+  border-radius: 10px;
+  background-color: #3d73fc;
+  color: #fff;
+}
+
+.form button:hover{
+  transform: translateY(-4px);
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.response, .response div{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.response div{
+  align-items: flex-start;
+}
+.success{
+  color:rgb(62, 215, 62)
+}
+.err{
+  color: rgb(255, 84, 84);
+}
+.snap{
+  display: flex;
+  flex-direction: column;
+  scroll-snap-type: y mandatory;
+  align-items: center;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  justify-content: flex-start !important;
+height: 400px;
+max-height: 800px;
+  gap: 30px;
+  width: 100%;
+  padding: 20px;
+  margin: 10px;
+}
+.item{
+  display: flex;
+  flex-direction: row !important;
+ justify-content: center;
+  align-items: flex-start !important;
+  margin: auto;
+  width: 200px;
+}
+.item>*{
+  margin: 10px;
+}
+.itemContainer{
+  scroll-snap-align: start;
+}
+.btns{
+  display: flex;
+  flex-direction: row-reverse !important;
+  justify-content: center;
+  align-items: center;
+}
+.btns button:last-child{
+  background-color: rgb(255, 72, 72);
+}
