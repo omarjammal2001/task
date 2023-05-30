@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-
+require('dotenv').config()
 const PORT= 3001;
 
 const { Vonage } = require('@vonage/server-sdk');
@@ -18,15 +18,15 @@ app.use(cors(corsOptions))
 app.use(bodyParser.json())
 
 const vonage = new Vonage({
-  apiKey: "b597b402",
-  apiSecret: "NzzOrQD1dLOHffwr"
+  apiKey: process.env.VONAGE_API_KEY,
+  apiSecret: process.env.VONAGE_API_SECRET
 });
-
-mongoose.connect('mongodb+srv://jammal:bombom@cluster0.gufyvhg.mongodb.net/?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true, useUnifiedTopology: true});
 
 const itemSchema =mongoose.Schema( { name:String,  
     description:String,
-    mobile: Number,})
+    mobile: Number,
+    category:String,})
 
 const Item = mongoose.model('Item',itemSchema);
 
@@ -49,6 +49,7 @@ app.post('/add', async (req, res) => {
         name:req.body.name,
         description:req.body.description,  
         mobile:req.body.mobile,
+        category:req.body.category,
     })
     res.json('Item added');  
    }
@@ -65,16 +66,15 @@ app.post('/update', async (req, res) => {
     if(isValid.status_message==='Success'){
      valid = true
     }
-    console.log(req.body)
-    if(req.body.updatedName.length>0){
-        const updatedItem = await Item.updateOne({_id:req.body.id},{
-            name:req.body.updatedName,
-            description:req.body.updatedDescription, 
-            mobile:req.body.updatedMobile,
-        })
-    }
-   
+
             if(valid){
+                    const updatedItem = await Item.updateOne({_id:req.body.id},{
+                        name:req.body.updatedName,
+                        description:req.body.updatedDescription, 
+                        mobile:req.body.updatedMobile,
+                        category:req.body.updatedCategory,
+                    })
+         
                 res.json('Item updated'); 
             } 
             else{

@@ -16,14 +16,17 @@
   padding: 20px;
   gap: 10px;
 }
-.form input{
+.form label{
+ margin-right: 12px;
+}
+.form input,.form select{
   border:2px solid #aaa; 
   outline: none;
   padding: 10px 30px;
 border-radius: 10px;
 transition: border 0.3s ease-in-out;
 }
-.form input:focus{
+.form input:focus,.form select:focus{
   border:2px solid #3d73fc;  
 }
 .form button{

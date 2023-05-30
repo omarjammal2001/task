@@ -11,6 +11,7 @@ function App() {
   const [name,setName] = useState("");
   const [description,setDescription] = useState("");
   const [mobile,setMobile] = useState("");
+  const [category,setCategory] = useState("");
   const [addItemRes, setAddItemRes] = useState({});
   const [deleteItemRes, setDeleteItemRes] = useState({});
   const [updateItemRes, setUpdateItemRes] = useState({});
@@ -20,6 +21,7 @@ function App() {
   const [updatedName,setUpdatedName] = useState("");
   const [updatedDescription,setUpdatedDescription] = useState("");
   const [updatedMobile,setUpdatedMobile] = useState("");
+  const [updatedCategory,setUpdatedCategory] = useState("");
 
   const getAllItems = async () => {
     const response = await fetch(`http://localhost:3001/all-items`, {
@@ -55,7 +57,7 @@ const submitHandler = async (number) => {
       mode: 'cors',
       headers: {'Content-Type':'application/json', 'Access-Control-Allow-Origin': '*'},
       body: JSON.stringify({
-      name,description,mobile
+      name,description,mobile,category
       })
     })
       .then(response => response.json())
@@ -91,7 +93,7 @@ const submitHandler = async (number) => {
       mode: 'cors',
       headers: {'Content-Type':'application/json', 'Access-Control-Allow-Origin': '*'},
       body: JSON.stringify({
-      id,updatedName,updatedDescription,updatedMobile
+      id,updatedName,updatedDescription,updatedMobile,updatedCategory
       })
     })
       .then(response => response.json())
@@ -101,6 +103,7 @@ const submitHandler = async (number) => {
         setUpdatedName("")
         setUpdatedDescription("")
         setUpdatedMobile("")
+        setUpdatedCategory("")
         setUpdateItemRes({})
         setIsUpdate({id:"",clicked:false})
        getAllItems()
@@ -153,6 +156,15 @@ const submitHandler = async (number) => {
 <label htmlFor='mobile'>Mobile Number</label>
       <input type="number" id='mobile' placeholder="enter mobile number" required value={mobile} onChange={(e)=>{setMobile(e.target.value)}}/>
 </div>
+<div>
+<label htmlFor='category'>Categories</label>
+<select value={category} onChange={(e)=>setCategory(e.target.value)}>
+  <option value="Electronics">Electronics</option>
+  <option value="Fashion">Fashion</option>
+  <option value="Home">Home</option>
+  <option value="Appliances">Appliances</option>
+</select>
+</div>
 <button onClick={addItem}>Add</button> 
       </div>
       {Object.keys(addItemRes).length>0 && <div className='response'>
@@ -187,15 +199,25 @@ const submitHandler = async (number) => {
            <h3>Mobile</h3>
            <p>{item.mobile}</p>
            </div>
+           <div>
+           <h3>Category</h3>
+           <p>{item.category}</p>
+           </div>
       </div>}
         
         {isUpdate.id === item._id && isUpdate.clicked && <div className='details'>
       <input type='text' placeholder='Enter new name' value={updatedName} onChange={(e)=>setUpdatedName(e.target.value)} />
               <input type='text' placeholder='Enter new desc' value={updatedDescription} onChange={(e)=>setUpdatedDescription(e.target.value)} />
               <input type='number' placeholder='Enter new mobile' value={updatedMobile} onChange={(e)=>setUpdatedMobile(e.target.value)} />
+              <select value={updatedCategory} onChange={(e)=>{setUpdatedCategory(e.target.value)}}>
+  <option value="Electronics">Electronics</option>
+  <option value="Fashion">Fashion</option>
+  <option value="Home">Home</option>
+  <option value="Appliances">Appliances</option>
+</select>
       </div>}
            <div>
-            <FontAwesomeIcon onClick={()=>{setIsUpdate({id:item._id,clicked:true});setUpdatedName(item.name);setUpdatedDescription(item.description);setUpdatedMobile(item.mobile)}} style={{cursor:'pointer'}} icon={faEdit} />
+            <FontAwesomeIcon onClick={()=>{setIsUpdate({id:item._id,clicked:true});setUpdatedName(item.name);setUpdatedDescription(item.description);setUpdatedMobile(item.mobile);setUpdatedCategory(item.category)}} style={{cursor:'pointer'}} icon={faEdit} />
            </div>
            <div>
             <FontAwesomeIcon  onClick={()=>{setIsDelete({id:item._id,clicked:true});setDeleteItemRes({})}} className='err' style={{cursor:'pointer'}} icon={faTrash} />
