@@ -88,7 +88,7 @@ const submitHandler = async (number) => {
   const updateItem = async (id) => {
     const response = await fetch(`http://localhost:3001/update`, {
       crossDomain:true,
-      method: 'PATCH',
+      method: 'POST',
       mode: 'cors',
       headers: {'Content-Type':'application/json', 'Access-Control-Allow-Origin': '*'},
       body: JSON.stringify({

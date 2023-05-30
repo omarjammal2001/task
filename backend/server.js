@@ -58,7 +58,7 @@ app.post('/add', async (req, res) => {
     
 });
 
-app.patch('/update', async (req, res) => {
+app.post('/update', async (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     let valid = false;
     if(req.body.updatedName.length>0){
