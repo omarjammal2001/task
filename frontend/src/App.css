@@ -95,3 +95,9 @@ max-height: 800px;
 .btns button:last-child{
   background-color: rgb(255, 72, 72);
 }
+.details{
+  display: flex;
+  flex-direction: row !important;
+  justify-content: center;
+  align-items: center;
+}

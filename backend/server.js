@@ -61,33 +61,25 @@ app.post('/add', async (req, res) => {
 app.post('/update', async (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     let valid = false;
+    const isValid= await validateNumber(req.body.updatedMobile)
+    if(isValid.status_message==='Success'){
+     valid = true
+    }
+    console.log(req.body)
     if(req.body.updatedName.length>0){
         const updatedItem = await Item.updateOne({_id:req.body.id},{
             name:req.body.updatedName,
-        })
-    }
-    if(req.body.updatedDescription.length>0){
-        const updatedItem = await Item.updateOne({_id:req.body.id},{
-            description:req.body.updatedDescription,  
-        })
-    }
-     if(req.body.updatedMobile.length>0){
-        const isValid= await validateNumber(req.body.updatedMobile)
-       if(isValid.status_message==='Success'){
-        valid = true
-        const updatedItem = await Item.updateOne({_id:req.body.id},{
+            description:req.body.updatedDescription, 
             mobile:req.body.updatedMobile,
         })
-       }
     }
-
    
-   if(valid){
-    res.json('Item updated'); 
-   } 
-   else{
-            res.json('Invalid Number')
-   }
+            if(valid){
+                res.json('Item updated'); 
+            } 
+            else{
+                        res.json('Invalid Number')
+            }
 });
 
 app.delete('/delete', async (req, res) => {

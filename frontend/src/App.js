@@ -15,8 +15,8 @@ function App() {
   const [deleteItemRes, setDeleteItemRes] = useState({});
   const [updateItemRes, setUpdateItemRes] = useState({});
   const [allItems, setAllItems] = useState([]);
-  const [isDelete,setIsDelete] =useState(false)
   const [isUpdate,setIsUpdate] =useState({id:"",clicked:false})
+  const [isDelete,setIsDelete] =useState({id:"",clicked:false})
   const [updatedName,setUpdatedName] = useState("");
   const [updatedDescription,setUpdatedDescription] = useState("");
   const [updatedMobile,setUpdatedMobile] = useState("");
@@ -80,7 +80,6 @@ const submitHandler = async (number) => {
       .then(response => response.json())
       .then(json=>setDeleteItemRes(json))
    
-    
        getAllItems()
      
 
@@ -102,6 +101,8 @@ const submitHandler = async (number) => {
         setUpdatedName("")
         setUpdatedDescription("")
         setUpdatedMobile("")
+        setUpdateItemRes({})
+        setIsUpdate({id:"",clicked:false})
        getAllItems()
       
     
@@ -173,7 +174,8 @@ const submitHandler = async (number) => {
           return <div key={index} className='itemContainer'>
           <div className='item'>
             <div><h3>Item #{index}</h3></div>
-           <div>
+            {isUpdate.id !== item._id && <div className='details'>
+        <div>
            <h3>Name</h3>
            <p>{item.name}</p>
            </div>
@@ -185,31 +187,37 @@ const submitHandler = async (number) => {
            <h3>Mobile</h3>
            <p>{item.mobile}</p>
            </div>
+      </div>}
+        
+        {isUpdate.id === item._id && isUpdate.clicked && <div className='details'>
+      <input type='text' placeholder='Enter new name' value={updatedName} onChange={(e)=>setUpdatedName(e.target.value)} />
+              <input type='text' placeholder='Enter new desc' value={updatedDescription} onChange={(e)=>setUpdatedDescription(e.target.value)} />
+              <input type='number' placeholder='Enter new mobile' value={updatedMobile} onChange={(e)=>setUpdatedMobile(e.target.value)} />
+      </div>}
            <div>
-            <FontAwesomeIcon onClick={()=>setIsUpdate({id:item._id,clicked:true})} style={{cursor:'pointer'}} icon={faEdit} />
+            <FontAwesomeIcon onClick={()=>{setIsUpdate({id:item._id,clicked:true});setUpdatedName(item.name);setUpdatedDescription(item.description);setUpdatedMobile(item.mobile)}} style={{cursor:'pointer'}} icon={faEdit} />
            </div>
            <div>
-            <FontAwesomeIcon  onClick={()=>setIsDelete(prev=>!prev)} className='err' style={{cursor:'pointer'}} icon={faTrash} />
+            <FontAwesomeIcon  onClick={()=>{setIsDelete({id:item._id,clicked:true});setDeleteItemRes({})}} className='err' style={{cursor:'pointer'}} icon={faTrash} />
            </div>
           </div>
-          <div className='delete'>
-        {isDelete &&     <h4>Are you sure you want to delete?</h4>}
-            {isDelete && <div className='btns'>
+          { isDelete.id === item._id && <div className='delete'>
+          <h4>Are you sure you want to delete?</h4>
+          <div className='btns'>
             <button onClick={()=>{deleteItem(item._id)}}>Delete</button>
-            <button onClick={()=>{setIsDelete(false)}}>Cancel</button></div>}
+            <button onClick={()=>{setIsDelete({id:'',clicked:false})}}>Cancel</button>
+            </div>
+            
             {deleteItemRes === 'Item deleted'  && <p className={deleteItemRes==='Item deleted' ? 'success' : 'err'}>{deleteItemRes}</p>}
-          </div>
+          </div>}
           <div className='update'>
             {isUpdate.clicked && isUpdate.id===item._id && <>
-            <input type='text' placeholder='Enter new name' value={updatedName} onChange={(e)=>setUpdatedName(e.target.value)} />
-            <input type='text' placeholder='Enter new desc' value={updatedDescription} onChange={(e)=>setUpdatedDescription(e.target.value)} />
-            <input type='number' placeholder='Enter new mobile' value={updatedMobile} onChange={(e)=>setUpdatedMobile(e.target.value)} />
             <div className='btns'>
             <button onClick={()=>{updateItem(item._id)}}>Update</button>
             <button onClick={()=>{setIsUpdate({})}}>Cancel</button>
             </div>
             </>}
-            {updateItemRes.length>0 && <p className={updateItemRes==='Item updated' ? 'success' : 'err'}>{updateItemRes}</p>}
+            {updateItemRes.length>0 && isUpdate.id === item._id && isUpdate.clicked && <p className={updateItemRes==='Item updated' ? 'success' : 'err'}>{updateItemRes}</p>}
           </div>
           </div>
         })
