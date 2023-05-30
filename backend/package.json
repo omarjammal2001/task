@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --forceExit --detectOpenHandles  --watchAll --maxWorkers=1",
     "dev": "nodemon server.js"
   },
   "author": "",
@@ -15,6 +15,10 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "mongoose": "^7.2.1",
-    "node-fetch": "^3.3.1"
+    "node-fetch": "^3.3.1",
+    "supertest": "^6.3.3"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0"
   }
 }
