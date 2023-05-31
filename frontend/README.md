@@ -73,16 +73,16 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 The app consists of a frontend and a backend. The frontend provides the user interface, and the backend handles API requests and communicates with a MongoDB database for data storage.
 
-Frontend Code:
+-Frontend Code:
 The frontend code is responsible for the app's appearance and user interaction. It uses HTML, CSS, and JavaScript.
 
-To run the frontend code:
+-To run the frontend code:
 
 Open the index.html file in a web browser.
 Backend Code
 The backend code handles API requests and communicates with the database. It uses Node.js, Express, MongoDB, and the Vonage API for phone number validation.
 
-To run the backend code:
+-To run the backend code:
 
 Install Node.js on your system.
 Install dependencies by running npm install in the backend directory.
@@ -93,7 +93,7 @@ VONAGE_API_SECRET: Vonage API secret
 Start the server by running node app.js in the backend directory.
 API Documentation:
 
-Number Validation API (Endpoint: /validate)
+-Number Validation API (Endpoint: /validate)
 
 Method: POST
 Request Body:
@@ -105,7 +105,7 @@ country_prefix: Country prefix associated with the number
 country_name: Name of the country associated with the number
 Item Management APIs:
 
-Add Item (Endpoint: /add)
+-Add Item (Endpoint: /add)
 
 Method: POST
 Request Body:
@@ -114,7 +114,8 @@ description: Description of the item
 mobile: Mobile number associated with the item
 category: Category of the item
 Response: Success message if the item is added successfully
-Update Item (Endpoint: /update)
+
+-Update Item (Endpoint: /update)
 
 Method: POST
 Request Body:
@@ -134,13 +135,16 @@ Fetch All Items (Endpoint: /all-items)
 
 Method: GET
 Response: Array of objects representing the items in the system
-## Code Efficiency and Areas for Improvement:
 
-Backend:
+//Code Efficiency and Areas for Improvement:
+
+-Backend:
 
 Implement input validation on request body parameters.
 
-Frontend:
+-Frontend:
 
 Implement client-side form validation.
 Improve the UI design and user experience.
+
+P.S: i did not find a functioning API that could display the carrier properly without being met with a paywall so instead i stuck with vonage API and replaced the carrier with the number prefix.
