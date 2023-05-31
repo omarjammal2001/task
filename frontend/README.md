@@ -68,3 +68,79 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## CODE DOCUMENTATION:
+
+The app consists of a frontend and a backend. The frontend provides the user interface, and the backend handles API requests and communicates with a MongoDB database for data storage.
+
+Frontend Code:
+The frontend code is responsible for the app's appearance and user interaction. It uses HTML, CSS, and JavaScript.
+
+To run the frontend code:
+
+Open the index.html file in a web browser.
+Backend Code
+The backend code handles API requests and communicates with the database. It uses Node.js, Express, MongoDB, and the Vonage API for phone number validation.
+
+To run the backend code:
+
+Install Node.js on your system.
+Install dependencies by running npm install in the backend directory.
+Set environment variables in a .env file:
+MONGO_URL: MongoDB connection URL
+VONAGE_API_KEY: Vonage API key
+VONAGE_API_SECRET: Vonage API secret
+Start the server by running node app.js in the backend directory.
+API Documentation:
+
+Number Validation API (Endpoint: /validate)
+
+Method: POST
+Request Body:
+number: Number to validate
+Response:
+status_message: Validation status ("Success" or error message)
+country_code: Country code associated with the number
+country_prefix: Country prefix associated with the number
+country_name: Name of the country associated with the number
+Item Management APIs:
+
+Add Item (Endpoint: /add)
+
+Method: POST
+Request Body:
+name: Name of the item
+description: Description of the item
+mobile: Mobile number associated with the item
+category: Category of the item
+Response: Success message if the item is added successfully
+Update Item (Endpoint: /update)
+
+Method: POST
+Request Body:
+id: ID of the item to update
+updatedName: Updated name of the item
+updatedDescription: Updated description of the item
+updatedMobile: Updated mobile number associated with the item
+updatedCategory: Updated category of the item
+Response: Success message if the item is updated successfully
+Delete Item (Endpoint: /delete)
+
+Method: DELETE
+Request Body:
+id: ID of the item to delete
+Response: Success message if the item is deleted successfully
+Fetch All Items (Endpoint: /all-items)
+
+Method: GET
+Response: Array of objects representing the items in the system
+## Code Efficiency and Areas for Improvement:
+
+Backend:
+
+Implement input validation on request body parameters.
+
+Frontend:
+
+Implement client-side form validation.
+Improve the UI design and user experience.
